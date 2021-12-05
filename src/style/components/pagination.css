@@ -1,0 +1,26 @@
+.catalog_pagination_inner{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.pagination{
+    display: flex;
+    flex-direction: row;
+    padding: 0 40px;
+}
+.page-item{
+    list-style-type: none;
+    padding: 1rem;
+    border-radius: 4px;
+}
+.page-link{
+    color: black;
+    text-decoration: none;
+
+}
+.active-pagination{
+    background-color: red;
+}
+.active-pagination a{
+    color: white;
+}

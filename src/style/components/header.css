@@ -30,7 +30,7 @@ header{
     border-radius:50px;
     background-color: rgba(255, 255, 255, 0.2);
 }
-nav,.logo,.mid-bar{
+.nav,.logo,.mid-bar{
     display: flex;
     flex-direction: row;
 }
@@ -68,7 +68,17 @@ input{
 .cat-arrow{
     margin-right: 2rem;
 }
+
 @media(max-width:767px){
+    .service-center{
+        width: 30%;
+    }
+    input{
+        width: 100px;
+    }
+    .official-site{
+        display: none;
+    }
     .user{
         flex-wrap: wrap;
     }

@@ -7,7 +7,7 @@ import Card from '../../components/Card'
 import Hamburger from '../../components/Hamburger';
 import Title from '../../components/Title'
 import { mainPageSelector} from "../../store/selectors";
-import {Link} from "react-router-dom";
+import {Link,useNavigate} from "react-router-dom";
 import {ScrollWrapper} from '../../components/ScrollWrapper';
 import '../../style/pages/main-page.css'
 const MainPage = () => {
@@ -16,9 +16,9 @@ const MainPage = () => {
     const [index, setIndex] = React.useState(0);
     const delay = 5000;
     const timeoutRef = React.useRef(null);
+    const navigate = useNavigate()
     const showSubcats = (id) =>{
-        let detection = window.innerWidth > 767 ? `.subcatalog${id}` : `.subcatalog-mob${id}` 
-        console.log(document.querySelector(detection))
+        let detection = window.innerWidth > 767 ? `.subcatalog${id}` : `.subcatalog-mob${id}`
         if(document.querySelector(detection).style.display == 'block'){
             document.querySelector(detection).style.display = 'none'
             return
@@ -59,14 +59,16 @@ const MainPage = () => {
                         <div className="catalog">
                             <div className="catalog-title">
                                 <img src={imgImport('mainPage', 'three-lines.svg')} alt="" />
-                                <p>Каталог товаров</p>
+                                <Link to="/catalog" style={{ color:'white', textDecoration:'none' }}>
+                                    <p>Каталог товаров</p>
+                                </Link>
                             </div>
                                 {contents.contents && contents.contents.categories.map(item => {
                                     return(
                                             <div key={item.id} className="category">
                                                 <div className="cat-title-cont">
                                                 <img className="cat-icon" src={'https://smartg.a-lux.dev/storage/'+item.image} alt="" />
-                                                    <p className="cat-title">{item.title}</p>
+                                                    <p className="cat-title" onClick={() => navigate(`catalog/${item.id}`)}>{item.title}</p>
                                                     <img
                                                         onClick={() => item.subcategories && showSubcats(item.id) } 
                                                         className="cat-arrow"
@@ -78,7 +80,7 @@ const MainPage = () => {
                                                         <div key={subitem.id} className={`subcatalog-mob${subitem.id} subcatalog-mob`}>
                                                                 
                         
-                                                                    <div className="subcat">
+                                                                    <div onClick={() => navigate(`catalog/sub-cat=${item.id}`)} className="subcat">
                                                                         {subitem.title}
                                                                     </div>
                                                                 
@@ -97,6 +99,22 @@ const MainPage = () => {
 
                     </div>
                         <div className="slideshow">
+                        {contents.contents && contents.contents.categories.map(item=>{
+                        if(item.subcategories.length > 0){
+                            return(
+                                    <div key={item.id} className={`subcatalog${item.id} subcatalog`}>
+                                        {item.subcategories && item.subcategories.map(subitem =>{
+                                            return(
+    
+                                                <div onClick={() => navigate(`catalog/sub-cat=${item.id}`)} className="subcat">
+                                                    {subitem.title}
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                )
+                        }
+                    })}
                             <div
                                 style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }} 
                                 className="slideshowSlider">
@@ -152,22 +170,6 @@ const MainPage = () => {
                             </div>
                             }
                     </div>
-                        {contents.contents && contents.contents.categories.map(item=>{
-                        if(item.subcategories.length > 0){
-                            return(
-                                    <div key={item.id} className={`subcatalog${item.id} subcatalog`}>
-                                        {item.subcategories && item.subcategories.map(subitem =>{
-                                            return(
-    
-                                                <div className="subcat">
-                                                    {subitem.title}
-                                                </div>
-                                            )
-                                        })}
-                                    </div>
-                                )
-                        }
-                    })}
                 </div>
                             <div className="advantages">
                                 {contents.contents && contents.contents.advantages.map(item =>{
@@ -205,6 +207,7 @@ const MainPage = () => {
                                     </div>
                                     <div className="red-about-description">
                                         <p>{contents.contents && contents.contents.about.description3}</p>
+                                        <img src={imgImport('mainPage', 'pulemet2.png')} alt="" />
                                     </div>
                                 </div>
                                 <div className="about-us-pic" style={{backgroundImage: `url(${contents.contents && 'https://smartg.a-lux.dev/storage/'+contents.contents.about.image2})`}}>
@@ -217,11 +220,13 @@ const MainPage = () => {
                                     {contents.contents && contents.contents.popularProducts.map(item =>{
                                         return(
                                             <Card
+                                                id={item.id}
                                                 key={item.id}
                                                 title={item.title}
                                                 rating={item.rating}
                                                 image={item.image}
                                                 price={item.price}
+                                                salePrice={item.salePrice ? item.salePrice : ''}
                                                 article={item.setNumber}
                                             />
                                         )
@@ -240,7 +245,7 @@ const MainPage = () => {
                                 <div className="right-quality-wrap">
                                     {contents.contents && contents.contents.miniAdvantages.map((item,index) =>{
                                         return(
-                                            <div key={index} style={{marginRight: '2rem'}} className={'mini-adv'+index}>
+                                            <div key={index} style={{marginRight: '2rem'}} className={'mini-adv'+ ' ' +`mini-adv${index}`}>
                                             
                                                 <img className="mini-adv-pic" src={'https://smartg.a-lux.dev/storage/' + item.image} alt="" />
                                                 <div className="mini-adv-text">
@@ -263,11 +268,13 @@ const MainPage = () => {
                                         {contents.contents && contents.contents.newProducts.map(item =>{
                                             return(
                                                 <Card
+                                                    id={item.id}
                                                     key={item.id}
                                                     title={item.title}
                                                     rating={item.rating}
                                                     image={item.image}
                                                     price={item.price}
+                                                    salePrice={item.salePrice ? item.salePrice : ''}
                                                     article={item.setNumber}
                                                 />
                                             )

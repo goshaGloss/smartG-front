@@ -1,7 +1,9 @@
 import React from 'react'
 import '../style/components/header.css'
 import {imgImport} from '../helpers/helper.js'
+import {Link, useNavigate} from 'react-router-dom'
 const Header = () => {
+    const navigate = useNavigate()
     return (
         <div className="header-component">
 
@@ -9,7 +11,7 @@ const Header = () => {
             <div className="container">
                 <div className="header-wrap">
                     <div className="phone-numbers">
-                        <img src={imgImport('header', 'phone.png')} alt="" />
+                            <img src={imgImport('header', 'phone.png')} alt="" />
                         <div className="phone-nums-cont">
                             <p>+7 (727) 346 55 66</p>
                             <div className="line"></div>
@@ -20,9 +22,11 @@ const Header = () => {
                         <p>Сервис-центр: +7 (707) 260-90-83 +7 (775) 540 00 04</p>
                     </div>
                     <div className="user">
-                        <div className="img-border">
-                            <img src={imgImport('header', 'cart.png')} alt="" />
-                        </div>
+                        <Link to="/basket">
+                            <div className="img-border">
+                                <img src={imgImport('header', 'cart.png')} alt="" />
+                            </div>
+                        </Link>
                         <div className="img-border">
                             <img src={imgImport('header', 'heart.png')} alt="" />
                         </div>
@@ -37,7 +41,9 @@ const Header = () => {
             <div className="container">
                 <div className="mid-bar">
                     <div className="logo">
-                        <img src={imgImport('header', 'Logo.png')} alt="" />
+                        <Link to="/">
+                            <img src={imgImport('header', 'Logo.png')} alt="" />
+                        </Link>
                         <div className="official-site">
                             <p>Официальный</p>
                             <p>сайт P.I.T.</p>
@@ -46,7 +52,8 @@ const Header = () => {
                     </div>
                     <nav className="nav">
                         <div className="nav-link">
-                            <p>/ О компании</p>
+                            <p style={{cursor: 'pointer'}} onClick={() => navigate('about')}>/ О компании</p>
+
                         </div>
                         <div className="nav-link">
                             <p>Оптовые продажи</p>

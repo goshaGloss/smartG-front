@@ -26,7 +26,11 @@
   display: flex;
   align-items: center;
 }
+.cat-title{
+  cursor: pointer;
+}
 .cat-arrow{
+  cursor: pointer;
   margin-left: auto;
 }
 .sidebar{
@@ -219,7 +223,7 @@
 .red-about{
     color: white;
     background: red;
-    padding: 40px 13px 40px 40px;
+    padding: 0px 13px 22px 40px;
     width: 300px;
     /* float: right; */
     margin: 0;
@@ -243,17 +247,20 @@
   background-repeat: no-repeat;
 }
 .card{
-  width: 300px;
+  width: 250px;
   border: 1px solid #D2CEE0;
   box-sizing: border-box;
   border-radius: 6px;
   margin-right: 20px;
 }
+.card-wrapper p {
+  color: black;
+}
 .card-wrapper{
   padding: 24px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;  
 }
 .item-pic{
   width: 200px; 
@@ -267,7 +274,8 @@
   margin-bottom: 2.5rem;
 }
 .cart{
-      display: flex;
+    width: 100%;
+    display: flex;
     align-items: center;
     justify-content: space-between;
 }
@@ -305,6 +313,7 @@
   display: flex; 
 }
 .mini-adv{
+  padding: 2rem;
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -353,8 +362,9 @@
   width: 250px;
   position: absolute;
   display: none;
-  top: 17rem;
-  left: 22rem;
+  top: 4rem;  
+  left: 0;
+  z-index: 1;
 }
 .active{
   color: #ED1C24;
@@ -390,6 +400,9 @@
   }
   .red-about{
     width: 260px;
+  }
+  .red-about-description img{
+    display: none;
   }
   .red-about-description{
     width: 160px;

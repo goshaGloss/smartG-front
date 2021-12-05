@@ -1,0 +1,13 @@
+.breadcumps{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 40px;
+}
+.breadcumps_inner:not(:first-child){
+    margin-left: 0.5rem;
+}
+.breadcumps_inner a{
+    font-size: 16px;
+    color: black;
+    text-decoration: none;
+}

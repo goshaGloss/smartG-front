@@ -1,0 +1,30 @@
+.catalog-filter{
+    width: 300px;
+}
+.catalog-inner{
+    display: flex;
+    flex-direction: row;    
+}
+.items-inner{
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+.items{
+    margin-left: 1.5rem;
+}
+.card{
+    margin-bottom: 1rem;
+}
+@media(max-width:767px){
+    .catalog-filter{
+        width: 100%;
+    }
+    .catalog-inner{
+        flex-direction: column;
+    }
+    .items-inner{
+        justify-content: center;
+        margin-top: 1rem;
+    }
+}

@@ -1,0 +1,4 @@
+.favorites-inner{
+    display: flex;
+    flex-wrap: wrap;
+}

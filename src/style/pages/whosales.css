@@ -1,0 +1,30 @@
+.whole-sale-img{
+    width: 50%;
+}
+.whole-sale-img img{
+    width: 100%;
+    object-fit: contain;
+}
+.whole-sale-text{
+    width: 49%;
+}
+.whole-sale-title{
+    font-size: 22px;
+    font-weight: 700;
+}
+.who-sales{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between
+}
+@media(max-width: 992px){
+    .whole-sale-text{
+        width: 100% !important;
+    }
+    .whole-sale-img{
+        width: 100% !important;
+    }  
+    .who-sales{
+        flex-direction: column;
+    } 
+}

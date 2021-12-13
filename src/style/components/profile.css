@@ -1,0 +1,55 @@
+.profile-info{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.profile-info-inner{
+    width: 80%;
+}
+.profile-info-inner p input{
+    height: 35px;
+    background: #efefef;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    width: 100%;
+}
+.send-ava{
+    margin: 0 auto;
+    margin-top: 1rem;
+    width: 100px;
+    height: 40px;
+    background: #EA1C24;
+    border-radius: 10px;
+    color: white;
+    outline: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.file-upload{
+    width: 30px;
+    height: 30px;
+    background: #EA1C24;
+    border-radius: 50%;
+    color: white;
+    outline: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+input[type="file"] {
+    display: none;
+}
+.cabinet_profile{
+    width: 100%;
+}
+.avatar{
+    display: flex;
+    flex-direction: column;
+}

@@ -70,7 +70,7 @@ const MainPage = () => {
                                                 <img className="cat-icon" src={'https://smartg.a-lux.dev/storage/'+item.image} alt="" />
                                                     <p className="cat-title" onClick={() => navigate(`catalog/${item.id}`)}>{item.title}</p>
                                                     <img
-                                                        onClick={() => item.subcategories && showSubcats(item.id) } 
+                                                        onClick={() => item.subcategories.length > 0 && showSubcats(item.id) } 
                                                         className="cat-arrow"
                                                         src={imgImport('mainPage', 'arrow-right.png')} alt="" 
                                                     />
@@ -228,6 +228,7 @@ const MainPage = () => {
                                                 price={item.price}
                                                 salePrice={item.salePrice ? item.salePrice : ''}
                                                 article={item.setNumber}
+                                                created={item.created_at}
                                             />
                                         )
                                     })}
@@ -276,6 +277,7 @@ const MainPage = () => {
                                                     price={item.price}
                                                     salePrice={item.salePrice ? item.salePrice : ''}
                                                     article={item.setNumber}
+                                                    created={item.created_at}
                                                 />
                                             )
                                         })}

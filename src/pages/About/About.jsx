@@ -148,6 +148,7 @@ const About = () => {
                                                     price={item.price}
                                                     salePrice={item.salePrice ? item.salePrice : ''}
                                                     article={item.setNumber}
+                                                    created={item.created_at}
                                                 />
                                             )
                                         })}

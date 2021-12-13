@@ -27,13 +27,17 @@ const Header = () => {
                                 <img src={imgImport('header', 'cart.png')} alt="" />
                             </div>
                         </Link>
-                        <div className="img-border">
-                            <img src={imgImport('header', 'heart.png')} alt="" />
-                        </div>
+                        <Link to="/cabinet/favorite">
+                            <div className="img-border">
+                                <img src={imgImport('header', 'heart.png')} alt="" />
+                            </div>
+                        </Link>
                         <div className="img-border">
                             <img src={imgImport('header', 'scale.png')} alt="" />
                         </div>
+                        <Link to="/cabinet/profile">
                             <img src={imgImport('header', 'user.png')} alt="" />  
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -69,7 +73,7 @@ const Header = () => {
                         </div>
                     </nav>
                     <div className="search-container">
-                        <input placeholder="Поиск" type="text" />
+                        <input className="search-input" placeholder="Поиск" type="text" />
                         <img src={imgImport('header', 'lupa.png')} alt="" />
                     </div>
                 </div>

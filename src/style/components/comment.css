@@ -1,0 +1,71 @@
+.comment-avatar{
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.comment-text{
+    width: 100%;
+    padding-left: 60px;
+}
+.comment-inner{
+    display: flex;
+    flex-direction: row;
+    padding: 40px 0px;
+    border-bottom: 1px solid #22222236;
+}
+.comment-rating{
+    display: flex;
+    align-items: center;
+}
+.comment-rating p{
+    margin-left: 30px;
+}
+.comment-title{
+    font-weight: 700;
+}
+.modal-bg{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0%;
+    background: #00000096;
+    z-index: 1;
+    flex-direction: column;
+}
+.modal-comment-inner{
+    position: relative;
+    padding: 1rem;
+    border-radius: 10px;
+    background: #f9f9f9;
+    display: flex;
+    width: 400px;
+    height: 400px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 4px 4px 8px 0px rgb(34 60 80 / 20%);
+}
+.modal-comment-inner input{
+    margin-bottom: 1rem;
+    outline: none;
+    /* width: 100%; */
+    border: 1px solid #ababab;
+    border-radius: 10px;
+    padding: 0.5rem 2rem;
+}
+.comment-rating-input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+.cross-img{
+    cursor: pointer;
+    width: 20px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}

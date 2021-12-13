@@ -1,0 +1,25 @@
+.cabinet_menu{
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: unset;
+}
+.cabinet_menu ul{
+    background-color: #efefef;
+    border-radius: 10px;
+    margin-right: 3rem;
+    padding: 1.6rem 2rem;
+}
+.cabinet_menu ul li{
+    list-style-type: none;
+    padding: 1rem 0;
+    border-bottom: 1px solid #d4d4e1;
+}
+.cabinet_menu ul li:last-child{
+    border: none;
+}
+.cabinet_menu ul li a{
+    font-size: 16px;
+    color: black;
+    text-decoration: none;
+}

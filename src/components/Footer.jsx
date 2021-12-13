@@ -1,7 +1,9 @@
 import React from 'react'
 import '../style/components/footer.css'
 import {imgImport} from '../helpers/helper.js';
+import { useNavigate } from 'react-router-dom';
 const Footer = () => {
+    const navigate = useNavigate()
     return (
         <footer>
             <div className="container">
@@ -14,10 +16,10 @@ const Footer = () => {
                         <p className="info-title">
                             Информация
                         </p>
-                        <a className="info-item">
+                        <a onClick={() => navigate('/about')} className="info-item">
                             О компании
                         </a>
-                        <a className="info-item">
+                        <a onClick={() => navigate('/delivery')} className="info-item">
                             Информация о доставке
                         </a>
                         <a className="info-item">
@@ -39,13 +41,13 @@ const Footer = () => {
                         <p className="additional-title">
                             Дополнительно
                         </p>
-                        <a className="additional-item">
+                        <a onClick={() => navigate('/brand')} className="additional-item">
                             Бренд
                         </a>
                         <a className="additional-item">
                             Подарочные сертификаты
                         </a>
-                        <a className="additional-item">
+                        <a onClick={() => navigate('/partners')} className="additional-item">
                             Партнёры
                         </a>
                         <a className="additional-item">

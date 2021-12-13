@@ -1,0 +1,22 @@
+.partners-page-container{
+    display: flex;
+    justify-content: space-between;
+}
+.partners-text{
+    width: 50%;
+}
+.partners-items{
+    width: 49%;
+}
+.partner-item-inner img{
+    object-fit: contain;
+    width: 100px;
+    padding: 1rem 2rem;
+    border: 1px solid #00000033;
+    border-radius: 20px;
+}
+.partners-text{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

@@ -1,0 +1,14 @@
+.banner-brand{
+    height: 525px;
+}
+.brand-banner-right{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    background: rgb(0, 0, 0, 0.5);
+    height: 100%;
+    border-radius: 6px 0px 0px 6px;
+}

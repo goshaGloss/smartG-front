@@ -1,5 +1,8 @@
 .catalog-filter{
     width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .catalog-inner{
     display: flex;
@@ -15,6 +18,23 @@
 }
 .card{
     margin-bottom: 1rem;
+}
+.filter-dropdown{
+    margin: 20px;
+    width: 100%;
+}
+.filter-dropdown-btn{
+    padding: 20px 15px;
+    background: #FFFFFF;
+    box-shadow: 0px 1px 2px rgb(58 58 68 / 24%), 0px 2px 4px rgb(90 91 106 / 24%);
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.filter-title-cont{
+    display: flex;
+    align-items: center;
 }
 @media(max-width:767px){
     .catalog-filter{

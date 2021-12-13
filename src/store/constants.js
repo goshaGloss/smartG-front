@@ -3,5 +3,9 @@ export const actions = {
     PRODUCT_FETCH: 'Products/GET',
     filterCat : 'filterByCat',
     filterSubCat: 'filterBySubCat',
-    aboutPage: 'fetchAbout'
+    aboutPage: 'fetchAbout',
+    REGISTER_ACTION: 'postUser',
+    GET_USER: 'login',
+    AUTHED: 'auth',
+    getFavs: 'getFavs'
 }

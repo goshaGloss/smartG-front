@@ -11,9 +11,6 @@ export const _storage = {
         return window.localStorage.setItem(key,value)
     },
     remove: (key,value) => {
-        if(key == 'cart'){
-            window.localStorage.removeItem(key,value)
-        }
         window.localStorage.removeItem(key);
         
     }

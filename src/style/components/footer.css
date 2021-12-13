@@ -5,6 +5,7 @@ footer{
     background: #040708;
 }
 .footer-wrap{
+    /* position: absolute; */
     justify-content:space-between;
     padding-top: 70px;
     display: flex;
@@ -21,14 +22,14 @@ footer{
     font-size: 18px;
     font-weight: 700;
 }
+.info-item,.additional-item,.support-item{
+    cursor: pointer;
+}
 .info-item:not(:last-child),.additional-item:not(:last-child),.support-item:not(:last-child){
     margin-bottom: 1rem;
 }
 .icons-wrap a:not(:last-child){
     margin-right: 20px;
-}
-.footer-white-line{
-    margin-top: 65px;
 }
 .bottom-content{
     display: flex;

@@ -12,30 +12,33 @@ import {filterByCat, filterBySubCat} from "../../store/actions";
 import { mainPageSelector} from "../../store/selectors";
 import {Link, useNavigate} from "react-router-dom";
 import {ScrollWrapper} from '../../components/ScrollWrapper';
+
 import '../../style/pages/basket.css'
 const Basket = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const [cart,setCart] = useState([])
     const [overall, setOverall] = useState(0)
     let basket = []
     useEffect(() => {
-        let storage = JSON.parse(_storage.get('cart'))
-        storage.map(item =>{
-            dispatch(fetchProduct(item.id)).then(res => {
-                let newItem =  {count:item.count, ...res.Product}
-                basket.push(newItem)
-                if(basket.length == storage.length){
-                    let overallPrice = 0
-                    basket.forEach(item =>{
-                        overallPrice += item.salePrice ? item.salePrice * item.count : item.price * item.count
-                    })
-                    setOverall(overallPrice)
-                    setCart(basket)
-                }
+        if(_storage.get('cart')){
+            let storage = JSON.parse(_storage.get('cart'))
+            storage.map(item =>{
+                dispatch(fetchProduct(item.id)).then(res => {
+                    let newItem =  {count:item.count, ...res.product}
+                    basket.push(newItem)
+                    if(basket.length == storage.length){
+                        let overallPrice = 0
+                        basket.forEach(item =>{
+                            overallPrice += item.salePrice ? item.salePrice * item.count : item.price * item.count
+                        })
+                        setOverall(overallPrice)
+                        setCart(basket)
+                    }
+                })
             })
-        })
+        }
     }, [])
-
     const deleteItem = (id) =>{
         let storage = JSON.parse(_storage.get('cart'))
         let basket = cart
@@ -132,7 +135,7 @@ const Basket = () => {
                             Общая цена: {overall} тг.
                         </div>
                         <div className="basket-links">
-                            <button className="make-order">
+                            <button onClick={() => navigate('/order', {state: cart})} className="make-order">
                                 Оформить заказ
 
                             </button>

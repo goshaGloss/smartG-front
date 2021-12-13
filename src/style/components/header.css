@@ -1,4 +1,4 @@
-*{
+header *{
     font-size: 14px;
 }
 .container{
@@ -52,7 +52,7 @@ header{
 .nav-link:not(:last-child){
     margin-right: 40px;
 }
-input{
+.search-input{
     margin-right: 1rem;
     width: 235px;
     height: 35px;
@@ -73,7 +73,7 @@ input{
     .service-center{
         width: 30%;
     }
-    input{
+    .search-input{
         width: 100px;
     }
     .official-site{

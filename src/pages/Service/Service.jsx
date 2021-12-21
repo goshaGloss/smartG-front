@@ -4,6 +4,9 @@ import { useDispatch } from 'react-redux'
 import { servicePageAction } from '../../store/actions'
 import BreadCumps from '../../components/BreadCumps'
 import Title from '../../components/Title'
+import Hamburger from '../../components/Hamburger';
+import { ScrollWrapper } from '../../components/ScrollWrapper';
+
 const Service = () => {
     const dispatch = useDispatch()
     const [service, setService] = useState([])
@@ -16,6 +19,7 @@ const Service = () => {
             {
                 service &&
                     <div className="container">
+                        <Hamburger />
                         <Title style={{ margin: '0'}} title="Сервис"></Title>
                         <BreadCumps 
                             items={
@@ -52,4 +56,4 @@ const Service = () => {
     )
 }
 
-export default Service
+export default ScrollWrapper(Service)

@@ -6,6 +6,7 @@ import '../../style/pages/whosales.css'
 import BreadCumps from '../../components/BreadCumps'
 import Title from '../../components/Title'
 import '../../style/pages/partners.css'
+import Hamburger from '../../components/Hamburger';
 const Partners = () => {
     const dispatch = useDispatch()
     const [partners, setPartners] = useState({})
@@ -16,6 +17,7 @@ const Partners = () => {
     return (
         <div className='partners-page'>
             <div className="container">
+                <Hamburger />
                 <Title title="Партнёры"></Title>
                 <BreadCumps 
                     items={

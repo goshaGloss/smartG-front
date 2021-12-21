@@ -1,9 +1,7 @@
 import React from 'react'
-import {imgImport} from '../../helpers/helper';
 import { useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {newPassAction} from "../../store/actions";
-import Card from '../../components/Card'
 import BreadCumps from '../../components/BreadCumps'
 import Hamburger from '../../components/Hamburger';
 import Pagination from '../../components/Pagination';
@@ -12,7 +10,6 @@ import {Link, useNavigate,useLocation} from "react-router-dom";
 import {ScrollWrapper} from '../../components/ScrollWrapper';
 import '../../style/pages/register.css'
 import {_storage} from "../../helpers/helper";
-
 const PasswordUpdate = () => {
     const location = useLocation();
     const dispatch = useDispatch()
@@ -25,13 +22,14 @@ const PasswordUpdate = () => {
     const reset = () =>{
         // if(user.email.length > 0){
             dispatch(newPassAction(newPass)).then(res =>{
-                    navigate('/login')
-                })
+                navigate('/login')
+            })
             // }  
         }
-    return (
-        <div style={{padding: '0px 0px 4rem'}}>
+        return (
+            <div style={{padding: '0px 0px 4rem'}}>
             <div className="container">
+            <Hamburger />
             <BreadCumps 
                             items={
                                 [
@@ -84,4 +82,4 @@ const PasswordUpdate = () => {
     )
 }
 
-export default PasswordUpdate
+export default ScrollWrapper(PasswordUpdate)

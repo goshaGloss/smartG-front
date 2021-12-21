@@ -5,13 +5,12 @@ import { getUserAction } from '../store/actions'
 import '../style/components/comment.css'
 import { imgImport } from '../helpers/helper'
 const Comment = (props) => {
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState(props.user)
     const [rating, setRating] = useState([])
     const [notRated, setNotRated] = useState([])
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getUserAction(props.user)).then(res => {
-            setUser(res.user)
+        console.log(props)
             let rate = 0
             let rated = []
             let notrated = []
@@ -23,7 +22,6 @@ const Comment = (props) => {
             }
             setRating(rated)
             setNotRated(notrated)
-        })
     }, [])
     
     if(props.approved == 1){
@@ -44,14 +42,14 @@ const Comment = (props) => {
                                 {
                                     rating.map(item =>{
                                         return(
-                                            <img src={imgImport('cardDetails', 'gold-star.png')} alt="" />
+                                            <img key={item} src={imgImport('cardDetails', 'gold-star.png')} alt="" />
                                         )
                                     })
                                 }
                                 {
                                     notRated.map(item =>{
                                         return(
-                                            <img src={imgImport('cardDetails', 'gray-star.png')} alt="" />
+                                            <img key={item} src={imgImport('cardDetails', 'gray-star.png')} alt="" />
                                         )
                                     })
                                 }

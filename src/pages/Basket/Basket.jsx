@@ -1,18 +1,13 @@
 import React from 'react'
 import {imgImport,  _storage} from '../../helpers/helper';
 import { useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {fetchProduct, fetchProducts} from "../../store/actions";
-import Card from '../../components/Card'
+import {useDispatch} from "react-redux";
+import {fetchProduct} from "../../store/actions";
 import BreadCumps from '../../components/BreadCumps'
 import Hamburger from '../../components/Hamburger';
-import Pagination from '../../components/Pagination';
 import Title from '../../components/Title'
-import {filterByCat, filterBySubCat} from "../../store/actions";
-import { mainPageSelector} from "../../store/selectors";
 import {Link, useNavigate} from "react-router-dom";
 import {ScrollWrapper} from '../../components/ScrollWrapper';
-
 import '../../style/pages/basket.css'
 const Basket = () => {
     const navigate = useNavigate()
@@ -68,10 +63,10 @@ const Basket = () => {
     return (
         <div>
             <div className="container">
-
+            <Hamburger />
             <BreadCumps 
                     items={
-                            [
+                        [
                                 {
                                     link: "/",
                                     name: 'Главная'
@@ -135,7 +130,7 @@ const Basket = () => {
                             Общая цена: {overall} тг.
                         </div>
                         <div className="basket-links">
-                            <button onClick={() => navigate('/order', {state: cart})} className="make-order">
+                            <button onClick={() => cart.length > 0 && navigate('/order', {state: cart})} className="make-order">
                                 Оформить заказ
 
                             </button>
@@ -152,4 +147,4 @@ const Basket = () => {
     )
 }
 
-export default Basket
+export default ScrollWrapper(Basket)

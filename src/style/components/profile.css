@@ -53,3 +53,9 @@ input[type="file"] {
     display: flex;
     flex-direction: column;
 }
+.cabinet_menu ul{
+    margin-right: 0 !important;
+}
+.cabinet_menu{
+    align-items: center;
+}

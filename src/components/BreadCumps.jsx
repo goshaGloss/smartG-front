@@ -11,8 +11,8 @@ const BreadCumps = (props) => {
             {items.map((obj, index) => (
                 <div className="breadcumps_inner" key={index}>
                     <Link to={obj.link}>
-                        <span>{ obj.name }</span>
-                        {(index + 1) !== items.length ? <span>/</span>: ""}
+                        <span style={{ color: index+1 == items.length && 'red' }}>{ obj.name }</span>
+                        {(index + 1) !== items.length ? <span style={{ marginLeft: '1rem', color:'red'}}>/</span>: ""}
                     </Link>
                 </div>
             ))}

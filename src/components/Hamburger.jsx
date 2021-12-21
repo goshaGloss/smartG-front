@@ -1,7 +1,8 @@
 import React from 'react'
 import '../style/components/hamburger.css'
-
+import { useNavigate } from 'react-router'
 const Hamburger = () => {
+    const navigate = useNavigate()
     return (
         <div className="hamburger-menu">
             <input id="menu__toggle" type="checkbox" />
@@ -10,12 +11,12 @@ const Hamburger = () => {
             </label>
 
             <ul className="menu__box">
-                <li><a className="menu__item" href="/">Главная</a></li>
-                <li><a href="" className="menu__item">О компании</a></li>
-                <li><a href="" className="menu__item">Оптовые продажи</a></li>
-                <li><a href="" className="menu__item">Запчасти</a></li>
-                <li><a href="" className="menu__item">Акции</a></li>
-                <li><a href="" className="menu__item">Контакты</a></li>
+                <li><a style={{ cursor: 'pointer' }} className="menu__item" onClick={() => navigate('/')}>Главная</a></li>
+                <li><a href="" className="menu__item" onClick={() => navigate('/about')}>О компании</a></li>
+                <li><a href="" className="menu__item" onClick={() => navigate('/wholesale')}>Оптовые продажи</a></li>
+                {/* <li><a href="" className="menu__item">Запчасти</a></li> */}
+                <li><a href="" className="menu__item" onClick={() => navigate('/')}>Акции</a></li>
+                <li><a href="" className="menu__item" onClick={() => navigate('/service')}>Сервис</a></li>
             </ul>
         </div>
     )

@@ -1,7 +1,7 @@
 .cabinet_menu{
     margin-top: 2rem;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: unset;
 }
 .cabinet_menu ul{
@@ -22,4 +22,17 @@
     font-size: 16px;
     color: black;
     text-decoration: none;
+}
+@media(max-width:992px){
+    .favorites-inner{
+        align-items: center;
+    }
+    .cabinet_menu{
+        flex-direction: column;
+    }
+    .profile-info{
+        flex-direction: column !important;
+        align-items: center !important;
+        margin-bottom: 2rem;
+    }
 }

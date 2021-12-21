@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { _storage } from '../helpers/helper';
 import {setFavAction, getFavAction,removeFavAction} from "../store/actions";
 import { favsSelector } from '../store/selectors';
+import { findAllByDisplayValue } from '@testing-library/react';
 const Card = (props) => {
     const [isFav, setIsFav] = useState(false)
     const dispatch = useDispatch()
@@ -22,11 +23,26 @@ const Card = (props) => {
     }
     const addFav = () =>{
         setIsFav(true)
-        dispatch(setFavAction(productId)).then((res) => console.log(res))  
+        dispatch(setFavAction(productId)).then((res) => {
+            if(!_storage.get('smartg-fav')){
+                let favs = []
+                favs.push(productId.product_id)
+                console.log(favs)
+                _storage.set('smartg-fav',JSON.stringify({favs}))
+            }else{
+                let favs = JSON.parse(_storage.get('smartg-fav')).favs
+                console.log(_storage.get('smartg-fav'))
+                favs.push(productId.product_id)
+                _storage.set('smartg-fav',favs)
+            }
+        })  
     }
     const removeFav = () =>{
         setIsFav(false)
-        dispatch(removeFavAction({id:String(productId.product_id)})).then((res) => console.log(res))  
+        dispatch(removeFavAction({id:String(productId.product_id)})).then((res) => {
+            let favs = _storage.get('smartg-fav').split(',').filter(item => item != productId.product_id)
+            _storage.set('smartg-fav',favs)
+        })  
     }
     useEffect(() => {
         // console.log(props)
@@ -34,11 +50,11 @@ const Card = (props) => {
             JSON.parse(_storage.get('cart')).forEach(item =>{
                 (item.id == props.id) && setIsInCart(true)
             })
-            dispatch(getFavAction()).then(res => {
-                res.favourites.forEach(item => {
-                    item.id == props.id && setIsFav(true)
-                });
-            })
+        }   
+        if(_storage.get('smartg-fav')){
+            console.log(_storage.get('smartg-fav'))
+            let favs = _storage.get('smartg-fav')
+            favs.includes(productId.product_id) && setIsFav(true)
         }
 
     }, [])
@@ -64,7 +80,7 @@ const Card = (props) => {
                 <div className="card-wrapper">
                     {
                         (props.salePrice || new Date().getMonth() == props.created.split('T')[0].split('-')[1]) && 
-                        <div className="modals">
+                        <div className="modals" style={{ marginTop: '1rem' }}>
                             {
                                 props.salePrice && <div className="sale-modal">Скидка</div>
                             }
@@ -79,14 +95,14 @@ const Card = (props) => {
                         {
                             rating.map(item =>{
                                 return(
-                                    <img src={imgImport('mainPage', 'red-star.png')} alt="" />
+                                    <img key={item} src={imgImport('mainPage', 'red-star.png')} alt="" />
                                 )
                             })
                         }
                         {
                             notrated.map(item =>{
                                 return(
-                                    <img src={imgImport('mainPage', 'gray-star.png')} alt="" />
+                                    <img key={item} src={imgImport('mainPage', 'gray-star.png')} alt="" />
                                 )
                             })
                         }
@@ -94,26 +110,28 @@ const Card = (props) => {
                         <Link to={`/product/${props.id}`} style={{ textDecoration:'none' }}>
                             <p>{props.title}</p>
                         </Link>
-                        <div className="cart">
-                            <div className="prices">
-                                <p style = {{fontWeight:'700',margin:'0'}} className={props.salePrice ? 'old-price' : 'card-price'}>{props.price} ₸</p>
-                                {props.salePrice && <p style = {{fontWeight:'700',margin:'0'}} className='card-sale'>{props.salePrice} ₸</p>}
+                        <div className="cart-setnum" style={{ width: '100%' }}>
+                            <div className="cart">
+                                <div className="prices">
+                                    <p style = {{fontWeight:'700',margin:'0'}} className={props.salePrice ? 'old-price' : 'card-price'}>{props.price} ₸</p>
+                                    {props.salePrice && <p style = {{fontWeight:'700',margin:'0'}} className='card-sale'>{props.salePrice} ₸</p>}
+                                </div>
+                                <div className="btns">
+                                    {
+                                        isFav
+                                        ? <img  onClick={() => removeFav()} style={{cursor: 'pointer',width: '30px',marginRight:'0.5rem'}} src={imgImport('card', 'heart.png')} alt="" />
+                                        : <img onClick={() => addFav()} style={{cursor: 'pointer',width: '30px',marginRight:'0.5rem'}} src={imgImport('card', 'heart-outline.png')} alt="" />
+                                    }
+                                    {
+                                        isInCart ? 
+                                        <img style={{cursor: 'pointer'}} onClick={()=>navigate('/basket')} src={imgImport('card','gray-cart.png')} alt="" />
+                                        :<img style={{cursor: 'pointer'}} onClick={()=>addToBasket()} src={imgImport('mainPage','cart-btn.png')} alt="" />
+                                    }
+                                    {/* <img onClick={()=>addToBasket()} src={isInCart ?imgImport('cardDetails','check.png') : imgImport('mainPage','cart-btn.png')} alt="" /> */}
+                                </div>
                             </div>
-                            <div className="btns">
-                                {
-                                    isFav
-                                    ? <img  onClick={() => removeFav()} style={{cursor: 'pointer',width: '30px',marginRight:'0.5rem'}} src={imgImport('card', 'heart.png')} alt="" />
-                                    : <img onClick={() => addFav()} style={{cursor: 'pointer',width: '30px',marginRight:'0.5rem'}} src={imgImport('card', 'heart-outline.png')} alt="" />
-                                }
-                                {
-                                    isInCart ? 
-                                    <img style={{cursor: 'pointer'}} onClick={()=>navigate('/basket')} src={imgImport('cardDetails','check.png')} alt="" />
-                                    :<img style={{cursor: 'pointer'}} onClick={()=>addToBasket()} src={imgImport('mainPage','cart-btn.png')} alt="" />
-                                }
-                                {/* <img onClick={()=>addToBasket()} src={isInCart ?imgImport('cardDetails','check.png') : imgImport('mainPage','cart-btn.png')} alt="" /> */}
-                            </div>
+                            <p style={{color: '#C2BFCD'}}>Модель: {props.article}</p>
                         </div>
-                        <p style={{color: '#C2BFCD'}}>Модель: {props.article}</p>
                 </div>
             </div>
     )

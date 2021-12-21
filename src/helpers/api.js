@@ -12,8 +12,17 @@ class API {
     _getMainPage() {
         return axios.get(this._setCustomUrl('api/pages/index'));
     }
+    _getEvents(id,page) {
+        return axios.get(this._setCustomUrl(`api/catalog/event/${id}?page=${page}`));
+    }
+    _getEventPage() {
+        return axios.get(this._setCustomUrl(`api/catalog/events`));
+    }
     _getDeliveryPage() {
         return axios.get(this._setCustomUrl('api/pages/delievery'));
+    }
+    _getDiscountsPage() {
+        return axios.get(this._setCustomUrl('api/catalog/events'));
     }
     _getBrandPage() {
         return axios.get(this._setCustomUrl('api/pages/brand'));
@@ -30,6 +39,12 @@ class API {
     _getServicePage() {
         return axios.get(this._setCustomUrl('api/pages/service'));
     }
+    _getCertificatePage() {
+        return axios.get(this._setCustomUrl('api/pages/certificates'));
+    }
+    _getPrivacyPage() {
+        return axios.get(this._setCustomUrl('api/pages/private-policy'));
+    }
     _fetchProducts(id) {
         return axios.get(this._setCustomUrl(`api/catalog/products?page=${id}`));
     }
@@ -43,6 +58,10 @@ class API {
     }
     _fetchProduct(id){
         return axios.get(this._setCustomUrl(`api/catalog/product/${id}`))
+    }
+    _search(form){
+        console.log(form)
+        return axios.post(this._setCustomUrl(`api/pages/search`),form)
     }
     _postUser(form){
         return axios.post(this._setCustomUrl(`api/auth/register`),form)
@@ -91,6 +110,7 @@ class API {
         })
     }
     _showFav(form){
+        console.log(_storage.get('smartg-token'))
         if(_storage.get('smartg-token')) return axios.get(this._setCustomUrl('api/showfavourites'),{
             headers: {
                 Authorization: 'Bearer ' + _storage.get('smartg-token')
@@ -118,6 +138,22 @@ class API {
                 Authorization: 'Bearer ' + _storage.get('smartg-token')
             }
         })
+    }
+    _getOrders(form,id){
+        if(_storage.get('smartg-token')) return axios.get(this._setCustomUrl(`api/profile/order-history`),{
+            headers: {
+                Authorization: 'Bearer ' + _storage.get('smartg-token')
+            }
+        })
+    }
+    _postCallback(form){
+        return axios.post(this._setCustomUrl(`api/pages/callback`),form)
+    }
+    _filterCatNew(id,page){
+        return axios.get(this._setCustomUrl(`api/catalog/${id}?page=${page}`))
+    }
+    _filter(filter,page){
+        return axios.get(this._setCustomUrl(`api/catalog/filter?category_id=${filter.category_id}&subcategory_id=${filter.subcategory_id}&event_id=${filter.event_id}&increase=${filter.increase}&decrease=${filter.decrease}&available=${filter.available}&new=${filter.new}&discount=${filter.discount}&popularity=${filter.popularity}&page=${page}`))
     }
 }
 const _api = new API();

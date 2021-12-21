@@ -1,11 +1,13 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import {imgImport} from '../../helpers/helper';
 import BreadCumps from '../../components/BreadCumps';
 import Title from '../../components/Title'
 import { useDispatch } from 'react-redux';
 import { brandPageAction } from '../../store/actions.js';
 import '../../style/pages/brand.css'
+import Hamburger from '../../components/Hamburger';
+import { ScrollWrapper } from '../../components/ScrollWrapper';
+
 const BrandInfo = () => {
     const dispatch = useDispatch()
     const [content, setContent] = useState({}) 
@@ -20,6 +22,7 @@ const BrandInfo = () => {
                 {content.banner && 
                 
                 <div className="container">
+                    <Hamburger />
                     <Title title="Информация о бренде"></Title>
                     <BreadCumps 
                             items={
@@ -95,4 +98,4 @@ const BrandInfo = () => {
     )
 }
 
-export default BrandInfo
+export default ScrollWrapper(BrandInfo)

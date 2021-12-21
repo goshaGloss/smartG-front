@@ -53,7 +53,7 @@ const MainPage = () => {
     return (
         <div>
             <div className="container">
-                <Hamburger></Hamburger>
+                <Hamburger />
                 <div className="hero">
                     <div className="sidebar">
                         <div className="catalog">
@@ -68,12 +68,15 @@ const MainPage = () => {
                                             <div key={item.id} className="category">
                                                 <div className="cat-title-cont">
                                                 <img className="cat-icon" src={'https://smartg.a-lux.dev/storage/'+item.image} alt="" />
-                                                    <p className="cat-title" onClick={() => navigate(`catalog/${item.id}`)}>{item.title}</p>
-                                                    <img
-                                                        onClick={() => item.subcategories.length > 0 && showSubcats(item.id) } 
-                                                        className="cat-arrow"
-                                                        src={imgImport('mainPage', 'arrow-right.png')} alt="" 
-                                                    />
+                                                    <p className="cat-title" onClick={() => item.subcategories.length == 0 ? navigate(`catalog/${item.id}`) : ''}>{item.title}</p>
+                                                    {
+                                                        item.subcategories.length > 0 ? 
+                                                        <img
+                                                            onClick={() => item.subcategories.length > 0 && showSubcats(item.id) } 
+                                                            className="cat-arrow"
+                                                            src={imgImport('mainPage', 'arrow-right.png')} alt="" 
+                                                        /> : ''
+                                                    }
                                                 </div>
                                             {item.subcategories.length > 0 && item.subcategories.map(subitem =>{
                                                 return(
@@ -124,7 +127,7 @@ const MainPage = () => {
                                         <div className="slide" key={item.id} style={{ backgroundImage: `url(https://smartg.a-lux.dev/storage/${item.image})` }}>
                                             <div className="slide-title">
                                                 <p>{item.title}</p>
-                                                <button className="know-more">Узнать больше</button>
+                                                <button style={{ cursor:'pointer' }} className="know-more" onClick={() => navigate('/brand')}>Узнать больше</button>
                                                 <div className="slideshowDots">
                                                     {contents.contents && contents.contents.banners.map(item => {
                                                         return(
@@ -142,7 +145,7 @@ const MainPage = () => {
                             </div>
                             {contents.contents && 
                             <div className="banners">
-                                <div className="banner" style={{ backgroundImage: `url(${imgImport('mainPage', 'bg-discount-1.png')})` }}>
+                                <div className="banner" onClick={() => navigate(`catalog/event=${contents.contents.events[0].id}`)} style={{ backgroundImage: `url(${imgImport('mainPage', 'bg-discount-1.png')})` }}>
                                     <div className="banner-wrap">
 
                                         <p>{contents.contents.events[0].title}</p>
@@ -150,16 +153,16 @@ const MainPage = () => {
                                         <img className="toolPic" src={'https://smartg.a-lux.dev/storage/'+contents.contents.events[0].image} alt="" />
                                     </div>
                                 </div>
-                                    <div className="banner" style={{ backgroundImage: `url(${imgImport('mainPage', 'cat-bg.png')})` }}>
+                                    <div className="banner" onClick={() => navigate(`catalog/event=${contents.contents.events[1].id}`)} style={{ backgroundImage: `url(${imgImport('mainPage', 'cat-bg.png')})` }}>
                                         <div className="banner-wrap">
                                             <div className="toolpic-cat-cont">
 
                                                 <img className="toolPic-cat" src={'https://smartg.a-lux.dev/storage/'+contents.contents.events[1].image} alt="" />
                                             </div>
-                                            <p style={{marginTop: '2rem'}}>{contents.contents.events[0].title}</p>
+                                            <p>{contents.contents.events[0].title}</p>
                                         </div>
-                                </div>
-                                <div className="banner" style={{ backgroundImage: `url(${imgImport('mainPage', 'bg-discount-2.png')})` }}>
+                                    </div>
+                                <div className="banner" onClick={() => navigate(`catalog/event=${contents.contents.events[2].id}`)} style={{ backgroundImage: `url(${imgImport('mainPage', 'bg-discount-2.png')})` }}>
                                     <div className="banner-wrap">
 
                                         <p>{contents.contents.events[2].title}</p>
@@ -215,7 +218,7 @@ const MainPage = () => {
                                 </div>
                             </div>
                             <div className="popular-items">
-                                <Title title='dsdsa'/>
+                                <Title title='Популярные товары'/>
                                 <div className="popular-wrapper">
                                     {contents.contents && contents.contents.popularProducts.map(item =>{
                                         return(
@@ -247,8 +250,9 @@ const MainPage = () => {
                                     {contents.contents && contents.contents.miniAdvantages.map((item,index) =>{
                                         return(
                                             <div key={index} style={{marginRight: '2rem'}} className={'mini-adv'+ ' ' +`mini-adv${index}`}>
-                                            
-                                                <img className="mini-adv-pic" src={'https://smartg.a-lux.dev/storage/' + item.image} alt="" />
+                                                <div className="white-circle">
+                                                    <img style={{ width:'20px', height:'20px' }} className="mini-adv-pic" src={'https://smartg.a-lux.dev/storage/' + item.image} alt="" />
+                                                </div>
                                                 <div className="mini-adv-text">
                                                     <p className="min-adv-title">
                                                         {item.title}

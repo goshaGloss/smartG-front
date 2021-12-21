@@ -1,9 +1,7 @@
 import React from 'react'
-import {imgImport} from '../../helpers/helper';
 import { useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {registerAction} from "../../store/actions";
-import Card from '../../components/Card'
 import BreadCumps from '../../components/BreadCumps'
 import Hamburger from '../../components/Hamburger';
 import Pagination from '../../components/Pagination';
@@ -12,7 +10,6 @@ import {Link, useNavigate} from "react-router-dom";
 import {ScrollWrapper} from '../../components/ScrollWrapper';
 import '../../style/pages/register.css'
 import {_storage} from "../../helpers/helper";
-
 const Register = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -36,6 +33,7 @@ const Register = () => {
     return (
         <div style={{padding: '0px 0px 4rem'}}>
             <div className="container">
+            <Hamburger />
             <BreadCumps 
                             items={
                                 [
@@ -91,4 +89,4 @@ const Register = () => {
     )
 }
 
-export default Register
+export default ScrollWrapper(Register)

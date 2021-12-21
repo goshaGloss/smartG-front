@@ -1,18 +1,14 @@
 import React from 'react'
-import {imgImport} from '../../helpers/helper';
 import { useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {resetAction} from "../../store/actions";
-import Card from '../../components/Card'
 import BreadCumps from '../../components/BreadCumps'
 import Hamburger from '../../components/Hamburger';
-import Pagination from '../../components/Pagination';
 import Title from '../../components/Title'
 import {Link, useNavigate} from "react-router-dom";
 import {ScrollWrapper} from '../../components/ScrollWrapper';
 import '../../style/pages/register.css'
 import {_storage} from "../../helpers/helper";
-
 const Reset = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -23,13 +19,14 @@ const Reset = () => {
         // if(user.email.length > 0){
             dispatch(resetAction(email)).then(res =>{
                 // console.log(res)
-                    navigate('/confirm',{state:res.user_id})
-                })
+                navigate('/confirm',{state:res.user_id})
+            })
             // }  
         }
-    return (
-        <div style={{padding: '0px 0px 4rem'}}>
+        return (
+            <div style={{padding: '0px 0px 4rem'}}>
             <div className="container">
+            <Hamburger />
             <BreadCumps 
                             items={
                                 [
@@ -74,4 +71,4 @@ const Reset = () => {
     )
 }
 
-export default Reset
+export default ScrollWrapper(Reset)

@@ -16,6 +16,49 @@ export const mainPageAction = () => async (dispatch) => {
         return Promise.reject(err);
     }
 }
+export const eventPageAction = () => async (dispatch) => {
+    try{
+        const res = await api._getEventPage();
+
+        return Promise.resolve(res.data);
+    }
+    catch (err){
+        return Promise.reject(err);
+    }
+}
+export const eventsAction = (id, page) => async (dispatch) => {
+    try{
+        console.log(page)
+        const res = await api._getEvents(id, page ? page : 1);
+
+        return Promise.resolve(res.data);
+    }
+    catch (err){
+        return Promise.reject(err);
+    }
+}
+export const certificatesPageAction = () => async (dispatch) => {
+    try{
+        const res = await api._getCertificatePage();
+
+
+        return Promise.resolve(res.data);
+    }
+    catch (err){
+        return Promise.reject(err);
+    }
+}
+export const privacyPageAction = () => async (dispatch) => {
+    try{
+        const res = await api._getPrivacyPage();
+
+
+        return Promise.resolve(res.data);
+    }
+    catch (err){
+        return Promise.reject(err);
+    }
+}
 export const brandPageAction = () => async (dispatch) => {
     try{
         const res = await api._getBrandPage();
@@ -29,6 +72,16 @@ export const brandPageAction = () => async (dispatch) => {
 export const deliveryPageAction = () => async (dispatch) => {
     try{
         const res = await api._getDeliveryPage();
+        
+        return Promise.resolve(res.data);
+    }
+    catch (err){
+        return Promise.reject(err);
+    }
+}
+export const discountsPageAction = () => async (dispatch) => {
+    try{
+        const res = await api._getDiscountsPage();
 
         return Promise.resolve(res.data);
     }
@@ -49,12 +102,47 @@ export const fetchProducts = (id = 1) => async (dispatch) =>{
         return Promise.reject(err);
     }
 }
+export const searchAction = (search) => async (dispatch) =>{
+    try{
+        const res = await api._search(search);
+        console.log(res)
+
+        return Promise.resolve(res.data);
+    }
+    catch (err){
+        return Promise.reject(err);
+    }
+}
+export const latestSeenAction = (item) => async (dispatch) =>{
+        let check = false
+        if(_storage.get('latestSeen')){
+            JSON.parse(_storage.get('latestSeen')).forEach(el => {
+                el.id == item.id ? check = true : check = false
+            });
+        }
+        if(!_storage.get('latestSeen')){
+            _storage.set('latestSeen',JSON.stringify([item]))
+        }else if(!check && JSON.parse(_storage.get('latestSeen')).length > 0 && JSON.parse(_storage.get('latestSeen')).length < 4){
+            let cart = []
+            let jsonCart = JSON.parse(_storage.get('latestSeen'))
+            cart = jsonCart
+            cart.push(item)
+            _storage.set('latestSeen',JSON.stringify(cart))
+        }else if(!check && JSON.parse(_storage.get('latestSeen')).length == 4){
+            let jsonCart = JSON.parse(_storage.get('latestSeen'))
+            let cart = []
+            cart = jsonCart.slice(0, -1)
+            cart.push(item)
+            _storage.set('latestSeen',JSON.stringify(cart))
+        }
+        
+}
 export const fetchProduct = (id) => async (dispatch) =>{
     try{
         const res = await api._fetchProduct(id);
         dispatch({
             type: actions.PRODUCT_FETCH,
-            payload: res.data
+            payload: res
         });
         return Promise.resolve(res.data);
     }
@@ -71,6 +159,16 @@ export const filterByCat = (id, page) => async (dispatch) => {
             payload: res.data.Category.products
         });
         return Promise.resolve(res.data.Category.products);
+    }
+    catch (err){
+        return Promise.reject(err);
+    }
+}
+export const filterSubCatNewAction = (id, page) => async (dispatch) => {
+    try{
+        const res = await api._filterSubCategory(id, page);
+        console.log(res)
+        return Promise.resolve(res.data.Subcategory.products);
     }
     catch (err){
         return Promise.reject(err);
@@ -151,8 +249,9 @@ export const registerAction = (user) => async (dispatch) => {
 }
 export const authAction = (user) => async (dispatch) => {
     try{
+        console.log(user)
         const res = await api._login(user);
-        console.log(res)
+        // console.log(res)
         // console.log(res.data.token)
         // dispatch({
         //     type: actions.GET_USER,
@@ -231,12 +330,13 @@ export const avatarAction = (avatar) => async (dispatch) => {
 }
 export const updateUserAction = (user) => async (dispatch) => {
     try {
+        console.log(user)
         const res = await api._updateUser(user);
 
-        dispatch({
-            type: actions.USER_ACTION,
-            payload: res.data
-        });
+        // dispatch({
+        //     type: actions.USER_ACTION,
+        //     payload: res.data
+        // });
 
         return Promise.resolve(res.data);
 
@@ -299,6 +399,7 @@ export const logoutUserAction = () => async (dispatch) => {
 }
 export const postOrderAction = (order) => async(dispatch) => {
     try{
+        console.log(order)
         const res = await api._postOrder(order)
 
         console.log(res)
@@ -312,6 +413,50 @@ export const postOrderAction = (order) => async(dispatch) => {
 export const postCommentAction = (comment, id) => async(dispatch) => {
     try{
         const res = await api._postComment(comment,id)
+
+        console.log(res)
+        return Promise.resolve(res.data)
+    }
+    catch(err){
+        return Promise.reject(err)
+    }
+}
+export const getOrdersAction = () => async(dispatch) => {
+    try{
+        const res = await api._getOrders()
+
+        console.log(res)
+        return Promise.resolve(res.data)
+    }
+    catch(err){
+        return Promise.reject(err)
+    }
+}
+export const callbackAction = (callback) => async(dispatch) => {
+    try{
+        const res = await api._postCallback(callback)
+
+        console.log(res)
+        return Promise.resolve(res.data)
+    }
+    catch(err){
+        return Promise.reject(err)
+    }
+}
+export const filterCatNewAction = (id ,page) => async(dispatch) => {
+    try{
+        const res = await api._filterCatNew(id ,page)
+
+        console.log(res)
+        return Promise.resolve(res.data)
+    }
+    catch(err){
+        return Promise.reject(err)
+    }
+}
+export const filterAction = (filter,page) => async(dispatch) => {
+    try{
+        const res = await api._filter(filter,page && page)
 
         console.log(res)
         return Promise.resolve(res.data)

@@ -10,6 +10,9 @@ import '../../style/pages/order.css'
 import Dropdown from '../../components/Dropdown'
 import {getUserAction, fetchProduct, postOrderAction} from "../../store/actions";
 import { _storage } from '../../helpers/helper';
+import Hamburger from '../../components/Hamburger';
+import { ScrollWrapper } from '../../components/ScrollWrapper';
+
 const Order = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -20,16 +23,17 @@ const Order = () => {
     const [showSuccess, setShowSuccess] = useState(false)
     const [chosen,setChosen] = useState({
         address:'Алматы' ,
-        time: 'В течении рабочего дня',
-        delivery: 'Курьером',
-        reciever:{
-            phone_number: "",
-            email:  "",
-            name: ""
-        },
-        date: curDate.toJSON().slice(0, 10)
+        delivery_status: 1,
+        delivery_date: curDate.toJSON().slice(0, 10),
+        delivery_time:'В течении рабочего дня',
+        payment_type: card,
+        phone: "",
+        email:  "",
+        name: "",
+        comment:''
     });
     const [basket, setBasket] = useState([])
+    const [err, setErr] = useState(false)
     useEffect(() => {
         console.log(chosen.date)
         if(!_storage.get('smartg-token')) navigate('/login')
@@ -67,84 +71,85 @@ const Order = () => {
         setCard(arg)
     }
     const getUser = () => {
-        console.log('tvet')
         if(isReceiver){
             setIsReceiver(false)
-            let reciever ={name:'', email: '', phone_number: ''}
-            setChosen({...chosen,reciever})
+            setChosen({...chosen,name:'', email: '', phone: ''})
             return
         }else{
             dispatch(getUserAction()).then(res =>{
-                let reciever ={name:res.user.name, email: res.user.email, phone_number: res.user.phone_number}
-                setChosen({...chosen,reciever})
+                setChosen({...chosen,name:res.user.name, email: res.user.email, phone: res.user.phone_number})
+                console.log(res)
                 setIsReceiver(true)
             })
         }
     }
     const onChangeChosen = (e,val, isReceiver = false) => {
         // console.log(e,val)
-        if(!isReceiver)
-            setChosen({
-                ...chosen,
-                [e]: val
-            })
-        else
-            setChosen({
-                ...chosen,
-                reciever: {
-                    ...chosen.reciever,
-                    [e]: val
-                }
-            })
+        setChosen({
+            ...chosen,
+            [e]: val
+        })
         console.log(isReceiver)
     }
     // useEffect(() => {
-    //     if(_storage.get('cart')){
-    //         let storage = JSON.parse(_storage.get('cart'))
-    //         console.log(storage)
-    //         storage.map(item =>{
-    //             dispatch(fetchProduct(item.id)).then(res => {
-    //                 let newItem =  {count:item.count, ...res.product}
-    //                 basket.push(newItem)
-    //                 if(basket.length == storage.length){
-    //                     let overallPrice = 0
-    //                     basket.forEach(item =>{
-    //                         overallPrice += item.salePrice ? item.salePrice * item.count : item.price * item.count
-    //                     })
-    //                     setOverall(overallPrice)
-    //                     setCart(basket)
-    //                 }
-    //             })
-    //         })
-    //     }
-    // }, [])
-    const sendOrder = ()=>{
-        const products = []
-        basket.forEach(item => {
-            products.push({quantity: item.count, id: item.id})
-        })
-        const order = {
-            total_price: chosen.delivery == 'Курьером' ? overallPrice + 1000 : overallPrice,
-            products
+        //     if(_storage.get('cart')){
+            //         let storage = JSON.parse(_storage.get('cart'))
+            //         console.log(storage)
+            //         storage.map(item =>{
+                //             dispatch(fetchProduct(item.id)).then(res => {
+                    //                 let newItem =  {count:item.count, ...res.product}
+                    //                 basket.push(newItem)
+                    //                 if(basket.length == storage.length){
+                        //                     let overallPrice = 0
+                        //                     basket.forEach(item =>{
+                            //                         overallPrice += item.salePrice ? item.salePrice * item.count : item.price * item.count
+                            //                     })
+                            //                     setOverall(overallPrice)
+                            //                     setCart(basket)
+                            //                 }
+                            //             })
+                            //         })
+                            //     }
+                            // }, [])
+                            const sendOrder = ()=>{
+                                if(!chosen.name || !chosen.email || !chosen.phone){
+                                    setErr(true)
+                                    setTimeout(() => {
+                                        setErr(false)
+                                    }, 1500);
+                                }else{
+                                    const products = []
+                                    const additionalFields = {}
+                                    basket.forEach(item => {
+                products.push({quantity: item.count, id: item.id})
+            })
+            
+            dispatch(postOrderAction({...chosen, products: products, total_price: overallPrice})).then(res => {
+                setShowSuccess(true)
+                setTimeout(() => {
+                    _storage.remove('cart')
+                    setShowSuccess(false)
+                    navigate('/')
+                }, 1500)
+                
+            })
         }
-        dispatch(postOrderAction(order)).then(res => {
-            setShowSuccess(true)
-            setTimeout(() => {
-                _storage.remove('cart')
-                setShowSuccess(false)
-                navigate('/')
-            }, 1500)
-
-        })
     }
-
+    
     return (
         <div>
             <div className="container">
+                <Hamburger />
                 {
                     showSuccess &&
                     <div className="success-modal">
                         Ваш заказ принят!
+                    </div>
+                }
+                {
+                    err && 
+                    <div className="err-modal">
+                        Введите ваши данные!
                     </div>
                 }
                 <BreadCumps 
@@ -176,7 +181,7 @@ const Order = () => {
                                         <label>Выберите дату:</label>
                                         <DatePicker selected={curDate} onChange={(myDate) => {
                                             setCurDate(myDate);
-                                            onChangeChosen("date", myDate.toJSON().slice(0, 10))
+                                            onChangeChosen("delivery_date", myDate.toJSON().slice(0, 10))
                                         }} />
                                     </p>
                                     <p>
@@ -192,12 +197,12 @@ const Order = () => {
                                         <h4>Условия доставки</h4>
                                             <div className="select-container">
                                                 <p>
-                                                    <input checked={chosen.delivery == 'Курьером' ? 1 : 0} className='radio'  type="radio" onChange={(e) => onChangeChosen("delivery","Курьером")}/>
+                                                    <input checked={chosen.delivery_status ==  1 ? 1 : 0} className='radio'  type="radio" onChange={(e) => onChangeChosen("delivery_status",1)}/>
                                                     <span className="radio_control"/>
                                                     <label htmlFor="deliver">Курьером</label>
                                                 </p>
                                                 <p>
-                                                    <input checked={chosen.delivery == 'Курьером' ? 0 : 1} className='radio' type="radio" onChange={(e) => onChangeChosen("delivery","Самовывоз")}/>
+                                                    <input checked={chosen.delivery_status == 1 ? 0 : 1} className='radio' type="radio" onChange={(e) => onChangeChosen("delivery_status",0)}/>
                                                     <span className="radio_control"/>
                                                     <label htmlFor="byOwn">Самовывоз</label>
                                                 </p>
@@ -212,15 +217,15 @@ const Order = () => {
                                             <input checked={isReceiver} className='radio-receive' type="radio" onClick={(e) => getUser()}/>
                                         </div>
                                         <p>
-                                            <input onChange={(e) => onChangeChosen("name",e.target.value,true)} value={chosen.reciever.name} type="text" className="name" placeholder='Ваше имя'/>
+                                            <input onChange={(e) => onChangeChosen("name",e.target.value)} value={chosen.name} type="text" className="name" placeholder='Ваше имя'/>
                                         </p>
                                         <p>
-                                            <input onChange={(e) => onChangeChosen("phone_number",e.target.value,true)} value={chosen.reciever.phone_number } type="text" placeholder='Ваш номер' className="phone" />
+                                            <input onChange={(e) => onChangeChosen("phone",e.target.value)} value={chosen.phone} type="text" placeholder='Ваш номер' className="phone" />
                                         </p>
                                         <p>
-                                            <input onChange={(e) => onChangeChosen("email",e.target.value,true)} value={chosen.reciever.email} type="text" className="email" placeholder='Ваш email' />
+                                            <input onChange={(e) => onChangeChosen("email",e.target.value)} value={chosen.email} type="text" className="email" placeholder='Ваш email' />
                                         </p>
-                                        <textarea placeholder='Введите ваш комментарий'  className='comment' name="" id="" cols="30" rows="10"></textarea>
+                                        <textarea onChange={(e) => onChangeChosen("comment",e.target.value)} placeholder='Введите ваш комментарий'  className='comment' name="" id="" cols="30" rows="10"></textarea>
 
                                         </div>
                                         :
@@ -231,13 +236,13 @@ const Order = () => {
                                             <input className='radio-receive' type="radio"/>
                                         </div>
                                         <p>
-                                            <input onChange={(e) => onChangeChosen("name",e.target.value,true)} value={chosen.reciever.name} type="text" className="name" placeholder='Ваше имя'/>
+                                            <input onChange={(e) => onChangeChosen("name",e.target.value)} value={chosen.name} type="text" className="name" placeholder='Ваше имя'/>
                                         </p>
                                         <p>
-                                            <input onChange={(e) => onChangeChosen("phone_number",e.target.value,true)} value={chosen.reciever.phone_number} type="text" className="phone" placeholder='Ваш номер'/>
+                                            <input onChange={(e) => onChangeChosen("phone",e.target.value)} value={chosen.phone} type="text" className="phone" placeholder='Ваш номер'/>
                                         </p>
                                         <p>
-                                            <input onChange={(e) => onChangeChosen("phone_number",e.target.value,true)} value={chosen.reciever.email} type="text" className="email" placeholder='Ваш email'/>
+                                            <input onChange={(e) => onChangeChosen("email",e.target.value)} value={chosen.email} type="text" className="email" placeholder='Ваш email'/>
                                         </p>
                                         <textarea placeholder='Введите ваш комментарий' className='comment' name="" id="" cols="30" rows="10"></textarea>
 
@@ -290,11 +295,11 @@ const Order = () => {
                             </div>
                             <div className="basket-delivery">
                                 <p>Доставка</p>
-                                <p>{chosen.delivery == 'Курьером' ? 1000 : 0} тг.</p>
+                                <p>{chosen.deliver_status == 1 ? 1000 : 0} тг.</p>
                             </div>
                             <div className="basket-overall">
                                 <p>Общая сумма</p>
-                                <p>{chosen.delivery == 'Курьером' ? overallPrice + 1000 : overallPrice} тг.</p>
+                                <p>{chosen.delivery_status == 1 ? overallPrice + 1000 : overallPrice} тг.</p>
                             </div>
                         </div>
                     </div>
@@ -304,4 +309,4 @@ const Order = () => {
     )
 }
 
-export default Order
+export default ScrollWrapper(Order)

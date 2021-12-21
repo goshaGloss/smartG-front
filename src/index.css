@@ -14,3 +14,33 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+@media(max-width:767px){
+  .container{
+    max-width: 600px !important;
+  }
+}
+@media(max-width:400px){
+  .delivery-zones-title{
+    padding: 0 !important;
+  }
+  .delivery-zones-title *{
+    font-size: 12px;
+  }
+  .delivery-zone *{
+    font-size: 12px;
+  }
+  .delivery-zone{
+    padding: 0 !important;
+  }
+  .delivery-map-title{
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .delivery-map-title img{
+    width: 200px;
+  }
+  .container{
+    max-width: 300px !important;
+  }
+}

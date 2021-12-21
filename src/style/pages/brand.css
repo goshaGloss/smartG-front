@@ -12,3 +12,26 @@
     height: 100%;
     border-radius: 6px 0px 0px 6px;
 }
+@media(max-width:992px){
+    .quality-wrap img{
+        width: 100% !important;
+    }
+    .quality-wrap{
+        display: flex;
+        align-items: center;    
+        flex-direction: column;
+    }
+    .about-banner-title{
+        font-size: 20px;
+    }
+    .about-banner-left-wrap{
+        padding: 0;
+    }
+    .banner-about{
+        height: 330px;
+    }
+    .about-mini-banner{
+        display: none;
+        width: auto;
+    }
+}

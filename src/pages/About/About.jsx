@@ -2,15 +2,12 @@ import React from 'react'
 import {imgImport} from '../../helpers/helper';
 import { useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {fetchProducts} from "../../store/actions";
 import Card from '../../components/Card'
 import BreadCumps from '../../components/BreadCumps'
 import Hamburger from '../../components/Hamburger';
-import Pagination from '../../components/Pagination';
 import Title from '../../components/Title'
 import {aboutPageAction} from "../../store/actions";
 import { aboutPageSelector} from "../../store/selectors";
-import {Link, useNavigate} from "react-router-dom";
 import {ScrollWrapper} from '../../components/ScrollWrapper';
 import '../../style/pages/about.css'
 const About = () => {
@@ -23,6 +20,7 @@ const About = () => {
     return (
         <div className="about-us-page">
             <div className="container">
+                <Hamburger />
                 <Title title="О компании"></Title>
                 <BreadCumps 
                         items={
@@ -64,7 +62,7 @@ const About = () => {
                                 return(
                                     <div className="quality">
                                         <div className="quality-wrap">
-                                            <img src={`https://smartg.a-lux.dev/storage/${item.image}`} alt="" />
+                                            <img style={{ width: '50%' }}  src={`https://smartg.a-lux.dev/storage/${item.image}`} alt="" />
                                             <div className="quality-text" style={{marginLeft: '60px'}}>
                                                 <p className="quality-title">
                                                     {item.title}
@@ -84,7 +82,7 @@ const About = () => {
                                                 </p>
                                                 <div dangerouslySetInnerHTML={{ __html: item.description}} className="quality-desc"></div>
                                             </div>
-                                            <img src={`https://smartg.a-lux.dev/storage/${item.image}`} alt="" />
+                                            <img style={{ width: '50%' }} src={`https://smartg.a-lux.dev/storage/${item.image}`} alt="" />
                                         </div>
                                     </div>
                                 )
@@ -92,7 +90,7 @@ const About = () => {
                         })}
                     </div>
                 </section>
-                        <div className="quality q-ab">
+                        <div style={{ marginTop: '75px' }}className="quality q-ab">
                             <div className="left-quality left-q-about" style={{ backgroundImage: `url(${imgImport('mainPage', 'second-banner.png')})` }}>
                                 <div className="left-q-text">
                                     <p className="left-q-title">{contents.contents && contents.contents.quality.title}</p>
@@ -105,8 +103,9 @@ const About = () => {
                                     {contents.contents && contents.contents.advantages.map((item,index) =>{
                                         return(
                                             <div key={index} style={{marginRight: '2rem'}} className={'mini-adv'+ ' ' +`mini-adv${index}`}>
-                                            
-                                                <img className="mini-adv-pic" src={'https://smartg.a-lux.dev/storage/' + item.image} alt="" />
+                                                <div className="white-circle">
+                                                    <img style={{ width:'20px', height:'20px' }} className="mini-adv-pic" src={'https://smartg.a-lux.dev/storage/' + item.image} alt="" />
+                                                </div>
                                                 <div className="mini-adv-text">
                                                     <p className="min-adv-title">
                                                         {item.title}
@@ -159,4 +158,4 @@ const About = () => {
     )
 }
 
-export default About
+export default ScrollWrapper(About)

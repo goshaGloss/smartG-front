@@ -1,18 +1,14 @@
 import React from 'react'
-import {imgImport} from '../../helpers/helper';
 import { useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {authAction} from "../../store/actions";
-import Card from '../../components/Card'
 import BreadCumps from '../../components/BreadCumps'
 import Hamburger from '../../components/Hamburger';
-import Pagination from '../../components/Pagination';
 import Title from '../../components/Title'
 import {Link, useNavigate} from "react-router-dom";
 import {ScrollWrapper} from '../../components/ScrollWrapper';
 import '../../style/pages/register.css'
 import {_storage} from "../../helpers/helper";
-
 const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -24,15 +20,16 @@ const Login = () => {
         // console.log(user.password > 0 && user.password <= 8)
         if(user.password.length >= 8){
             dispatch(authAction(user)).then(res =>{
-                    if(_storage.get('smartg-token')){
-                        navigate('/cabinet/profile')
-                    }
-                })
-            }  
-        }
+                if(_storage.get('smartg-token')){
+                    navigate('/cabinet/profile')
+                }
+            })
+        }  
+    }
     return (
         <div style={{padding: '0px 0px 4rem'}}>
             <div className="container">
+            <Hamburger />
             <BreadCumps 
                             items={
                                 [
@@ -80,4 +77,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default ScrollWrapper(Login)

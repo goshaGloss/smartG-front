@@ -1,0 +1,14 @@
+.certificates-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+.certificate-item{
+    object-fit: contain;
+    margin-right: 1rem;
+    cursor: pointer;
+    border-radius: 10px;
+    width: 33%;
+}

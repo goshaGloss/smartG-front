@@ -1,14 +1,9 @@
 import React from 'react'
-import {imgImport} from '../../helpers/helper';
 import { useEffect, useState, useMemo} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {registerAction} from "../../store/actions";
-import Card from '../../components/Card'
 import BreadCumps from '../../components/BreadCumps'
 import Hamburger from '../../components/Hamburger';
-import Pagination from '../../components/Pagination';
-import Title from '../../components/Title'
-import {Link, useNavigate, useMatch, useParams, useLocation, Outlet,Routes,Route} from "react-router-dom";
+import {Link, useNavigate, useLocation, Outlet,Routes,Route} from "react-router-dom";
 import {ScrollWrapper} from '../../components/ScrollWrapper';
 import {_storage} from "../../helpers/helper";
 import '../../style/pages/cabinet.css'
@@ -53,6 +48,7 @@ import '../../style/pages/cabinet.css'
     return (
         <div>
             <div className="container">
+                <Hamburger />
                     <BreadCumps 
                             items={
                                 [
@@ -71,7 +67,7 @@ import '../../style/pages/cabinet.css'
                                 ]
                             }
                         />
-                <div className="cabinet">
+                <div className="cabinet" style={{ marginBottom: '3rem' }}>
                         <div className="cabinet_menu">
                         <ul>
                             {

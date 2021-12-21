@@ -1,0 +1,5 @@
+.discounts-container{
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    display: flex;
+}

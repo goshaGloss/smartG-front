@@ -23,6 +23,10 @@ import Delivery from "./pages/Delivery/Delivery";
 import WholeSale from "./pages/WholeSale/WholeSale";
 import Service from "./pages/Service/Service";
 import Partners from "./pages/Partners/Partners";
+import Certificates from "./pages/Certificates/Certificates";
+import Privacy from "./pages/Privacy/Privacy";
+import Discounts from "./pages/Discounts/Discounts";
+import Comparison from "./pages/Comparison/Comparison";
 import './App.css';
 
 const routes = [
@@ -43,7 +47,7 @@ const routes = [
         component: <Logout/>
       }
 ];
-
+    
 function App() {
   return (
     <Router>
@@ -76,7 +80,11 @@ function App() {
         <Route path="/wholesale" element={<WholeSale/>}/>
         <Route path="/service" element={<Service/>}/>
         <Route path="/partners" element={<Partners/>}/>
-        </Routes>
+        <Route path="/certificates" element={<Certificates/>}/>
+        <Route path="/privacy" element={<Privacy/>}/>
+        <Route path="/discounts" element={<Discounts/>}/>
+        <Route path="/comparison" element={<Comparison/>}/>
+      </Routes>
       {/* "start": "react-scripts start", */}
 
       <Footer/>

@@ -7,6 +7,9 @@ import { useDispatch } from 'react-redux'
 import {deliveryPageAction} from '../../store/actions'
 import { imgImport } from '../../helpers/helper'
 import '../../style/pages/delivery.css'
+import Hamburger from '../../components/Hamburger';
+import { ScrollWrapper } from '../../components/ScrollWrapper';
+
 const Delivery = () => {
     const [delivery, setDelivery] = useState({})
     const dispatch = useDispatch()
@@ -18,6 +21,7 @@ const Delivery = () => {
         <div>
             {delivery.delieveryZones && 
                 <div className="container">
+                <Hamburger />
                     <Title title="Информация о доставке"></Title>
                     <BreadCumps 
                         items={
@@ -92,4 +96,4 @@ const Delivery = () => {
     )
 }
 
-export default Delivery
+export default  ScrollWrapper(Delivery)

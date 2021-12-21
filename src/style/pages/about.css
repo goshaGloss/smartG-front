@@ -32,7 +32,7 @@
     color: white;
 }
 .about-mini-banner{
-    bottom: -2rem;
+    bottom: -2.8rem;
     left: -4rem;
     width: 520px;
     height: 200px;
@@ -89,4 +89,39 @@
 .desc-row-title{
     font-size: 22px;
     font-weight: 700;
+}
+@media(max-width:767px){
+    .description-row-wrap{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .quality-text{
+        margin: 0 !important;
+        text-align: center;
+    }
+    .right-quality{
+        padding: 0;
+    }
+    .banner-about{
+        background-size: 170% 100%;
+    }
+    .quality-image-about{
+        display: none;
+    }
+    .description-row{
+        justify-content: center;
+    }
+    .q-ab{
+        height: 100% !important;
+    }
+    .about-banner-left{
+        padding: 0 1rem;
+    }
+    .about-left-desc{
+        font-size: 15px;
+    }
+    .about-section-item img {
+        width: 200px;
+    }
 }

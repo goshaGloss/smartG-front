@@ -2,7 +2,7 @@ import React from 'react'
 import {imgImport, _storage} from '../../helpers/helper';
 import { useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {fetchProduct, fetchProducts} from "../../store/actions";
+import {fetchProduct, fetchProducts, latestSeenAction} from "../../store/actions";
 import BreadCumps from '../../components/BreadCumps'
 import {ScrollWrapper} from '../../components/ScrollWrapper';
 import {useParams} from 'react-router-dom'
@@ -12,6 +12,8 @@ import '../../style/pages/card-details.css'
 import { useNavigate } from 'react-router';
 import Comment from '../../components/Comment';
 import { postCommentAction } from '../../store/actions';
+import Hamburger from '../../components/Hamburger';
+
 const CardDetail = () => {
     const {
         id
@@ -21,7 +23,7 @@ const CardDetail = () => {
     // const [rating, setRating] = useState(0)
     const [count, setCount] = useState(1)
     const [rating, setRating] = useState([])
-    const [notRated, setNotRated] = useState([])
+    const [notRated, setNotRated] =useState([])
     const [recommendation, setRecommendation] = useState(0)
     const [product,setProduct] = useState({})
     const [similarProducts,setSimilarProducts] = useState([])
@@ -35,6 +37,7 @@ const CardDetail = () => {
         title:''
     })
     useEffect(() => {
+        
         dispatch(fetchProduct(id)).then(res=>{
             setSimilarProducts(res.random)
             let rate = 0
@@ -45,7 +48,6 @@ const CardDetail = () => {
                     item.rating > 3 && setRecommendation(recommendation + 1)
                     rate = rate + item.rating
                 })
-                // setAverageRating(Math.round(rate / comment.length))
                 for(let i = 0; i < Math.round(rate / res.comments.length); i++){
                     rated.push(i)
                 }
@@ -58,19 +60,19 @@ const CardDetail = () => {
             }
         })
     }, [])
+    console.log(comment)
     useEffect(() => {
         dispatch(fetchProduct(id)).then(res=>{
             // console.log(JSON.parse(_storage.get('cart')))
-            JSON.parse(_storage.get('cart')).forEach(item =>{
-                (item.id == res.product.id) && setIsInCart(true)
-            })
+            if(_storage.get('cart')){
+                JSON.parse(_storage.get('cart')).forEach(item =>{
+                    (item.id == res.product.id) && setIsInCart(true)
+                })
+            }
+
+            dispatch(latestSeenAction(res.product))
             setProduct(res.product)
         })
-    }, [])
-    useEffect(() => {
-        if(comment.length > 0){
-            // console.log(comment)
-        }
     }, [])
     const setStorage = () =>{
         let item = {
@@ -89,11 +91,15 @@ const CardDetail = () => {
         setIsInCart(true)
     }
     const sendComment = () => {
+        if(!_storage.get('smartg-token')){
+            navigate('/login')
+        }
         if(!newComment.text || !newComment.title && !newComment.rating){
             setErr(true)
         }else{
             console.log(product.id)
             dispatch(postCommentAction(newComment,product.id)).then(res => {
+                console.log(res)
                 setShowComment(false)
             })
         }
@@ -122,6 +128,7 @@ const CardDetail = () => {
                     </div>
                 }
             <div className="container">
+                <Hamburger />
                 <Title title={product && product.title}></Title>
                  <BreadCumps 
                         items={
@@ -229,7 +236,7 @@ const CardDetail = () => {
                             </div>   
                             <p className="reviews-count">{comment.length} Отзывов</p>
                         </div>
-                        <div onClick={() => setShowComment(!showComment)} className="make-order">Оставить отзыв</div>
+                        <div onClick={() => setShowComment(!showComment)} className="make-order make-adapt">Оставить отзыв</div>
                     </div>
                         <p>{recommendation} из {comment.length} пользователей рекоммендует этот товар</p>
                         <div className="comments-container">
@@ -241,13 +248,31 @@ const CardDetail = () => {
                                             title={item.title}
                                             rating={item.rating}
                                             approved={item.approved}
-                                            user={item.user_id}
+                                            user={item.user[0]}
                                             date={item.created_at.split('T')[0]}
                                         />
                                     )
                                 })
                             }
                         </div>
+                </div>
+                <Title title="Недавно просмотрено"></Title>
+                <div className="latest-seen-prod">
+                    {JSON.parse(_storage.get('latestSeen')) && JSON.parse(_storage.get('latestSeen')).map((item,index)=>{
+                        return( 
+                               <Card
+                                    id={item.id}
+                                    key={item.id}
+                                    title={item.title}
+                                    rating={item.rating}
+                                    image={item.image}
+                                    price={item.price}
+                                    salePrice={item.salePrice ? item.salePrice : ''}
+                                    article={item.setNumber}
+                                    created={item.created_at}
+                                />
+                            )
+                    })}
                 </div>
                 <Title title="Похожие Товары"></Title>
                 <div className="similar-products">
@@ -273,4 +298,4 @@ const CardDetail = () => {
     )
 }
 
-export default CardDetail
+export default ScrollWrapper(CardDetail)

@@ -11,6 +11,16 @@ header *{
     flex-direction: row;
     align-items: center;
 }
+.phone-numbers *:not(:last-child){
+    margin-right: 5px;
+}
+.line{
+    border: 1px solid #FFFFFF;
+    transform: rotate(90deg);
+    background-color: white;
+    width: 21.83px;
+    height: 0px;
+}
 .header-wrap{
     height: 100%;
     display: flex;
@@ -19,7 +29,7 @@ header *{
     align-items: center;
 }
 header{
-        color: white;
+    color: white;
     height: 60px;
     width: 100%;
     background-color: #040708;;
@@ -44,9 +54,11 @@ header{
     width: 100px;
     display: flex;
     flex-direction: column;
-    align-items: flex-end
+    align-items: flex-end;
+    margin-left: 20px;
 }
 .official-site > p{
+    color: rgba(178, 178, 178, 1);
     margin: 0;
 }
 .nav-link:not(:last-child){
@@ -68,10 +80,34 @@ header{
 .cat-arrow{
     margin-right: 2rem;
 }
-
+@media(max-width:420px){
+    header *{
+        font-size: 10px;
+    }
+    .mid-bar{
+        flex-direction: column;
+    }
+}
+@media(max-width: 992px){
+    .payment-type{
+        width: 100% !;
+    }
+    .card{
+        margin-right: 1rem;
+    }
+    .right-quality-wrap{
+        padding: 0;
+    }
+    .mid-bar{
+        justify-content: space-around;
+    }
+    .nav{
+        display: none;
+    }
+}
 @media(max-width:767px){
-    .service-center{
-        width: 30%;
+    .right-quality-wrap{
+        padding: 1rem !important;
     }
     .search-input{
         width: 100px;
@@ -80,16 +116,14 @@ header{
         display: none;
     }
     .user{
+        margin-bottom: 1rem;
         flex-wrap: wrap;
     }
     header{
-        height: 100px;
+        height: 190px;  
     }
-    .phone-nums-cont p{
-        font-size: 12px;
-    }
-    .service-center p {
-        font-size: 12px;
+    .header-wrap{
+        flex-direction: column;
     }
     .phone-nums-cont{
         flex-direction: column;

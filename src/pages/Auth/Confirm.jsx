@@ -1,18 +1,14 @@
 import React from 'react'
-import {imgImport} from '../../helpers/helper';
 import { useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {confirmAction} from "../../store/actions";
-import Card from '../../components/Card'
 import BreadCumps from '../../components/BreadCumps'
 import Hamburger from '../../components/Hamburger';
-import Pagination from '../../components/Pagination';
 import Title from '../../components/Title'
 import {Link, useNavigate,useLocation} from "react-router-dom";
 import {ScrollWrapper} from '../../components/ScrollWrapper';
 import '../../style/pages/register.css'
 import {_storage} from "../../helpers/helper";
-
 const Confirm = (props) => {
     const location = useLocation();
     const dispatch = useDispatch()
@@ -25,13 +21,14 @@ const Confirm = (props) => {
     const reset = () =>{
         // if(user.email.length > 0){
             dispatch(confirmAction(confirm)).then(res =>{
-                    navigate('/update',{state:confirm.user_id})
-                })
+                navigate('/update',{state:confirm.user_id})
+            })
             // }  
         }
-    return (
-        <div style={{padding: '0px 0px 4rem'}}>
+        return (
+            <div style={{padding: '0px 0px 4rem'}}>
             <div className="container">
+            <Hamburger />
             <BreadCumps 
                             items={
                                 [
@@ -76,4 +73,4 @@ const Confirm = (props) => {
     )
 }
 
-export default Confirm
+export default ScrollWrapper(Confirm)

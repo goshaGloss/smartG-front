@@ -92,7 +92,7 @@ const Basket = () => {
                             {
                                 cart.map(item => {
                                     return(
-                                        <div className="cart-item">
+                                        <div key={item.id} className="cart-item">
                                             <div className="cart-item-inner">
                                                 <div className="item-content">
                                                     <div className="item-content-inner">                                                    

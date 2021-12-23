@@ -23,7 +23,7 @@ const Dropdown = ({list,keyIndex="address",defaultTitle,chosen={},setChosen = ()
         setBorder('none')
     }
     return (
-        <div>
+        <div style={{ marginTop: '1.5rem' }}>
             <div className="dropdown_current" onClick={openDropDown}>
             <span>{chosen.time ? chosen.time : defaultTitle}</span>
             <img src={imgImport('default_text', 'arrow_bottom.svg')} alt="" />

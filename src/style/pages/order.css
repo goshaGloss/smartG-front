@@ -6,6 +6,10 @@ form input:not(.radio):not(.radio-receive){
     border-radius: 10px;
     padding: 0.5rem 2rem;
 }
+.order-field-title{
+    font-size: 16px;
+    font-weight: 700;
+}
 .order-info{
     width: 60%;
 }

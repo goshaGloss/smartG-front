@@ -67,7 +67,7 @@ const Catalog = () => {
             filterAll('event_id',location.pathname.substr(-1))
         }
         if(!location.pathname.includes('sub-cat') && !location.pathname.includes('event') && test){
-            console.log(location.pathname.substr(-1))
+            // console.log(location.pathname.substr(-1))
             filterAll('category_id',location.pathname.substr(-1))
         }if(location.pathname.includes('sub-cat') && test){
             filterAll('subcategory_id',location.pathname.substr(-1))
@@ -82,7 +82,7 @@ const Catalog = () => {
         // if(reg.test(location.pathname.substr(-1) && location.pathname.includes)
     },[]);
     const onPaginate = ({ currentPage }) => {
-        console.log(checkers)
+        // console.log(checkers)
         if(currentPage <= 0 || !currentPage) return;
         navigate(currentPage);
         var reg = new RegExp('^[0-9]$');
@@ -125,12 +125,14 @@ const Catalog = () => {
             dispatch(fetchProducts(page)).then(res => {
                 setCatalog({products: res[1]})
                 setPaginationDetails(res[1]);
+                navigate('/catalog')
+                setFilter({...filter,category_id:'',subcategory_id:'',event_id:'',})
             })
             return
         }
         let newItem = filter
         if(type.includes('id')){
-            console.log(filter)
+            // console.log(filter)
             for(let i in filter){
                 if(i.includes('id') && i == type){
                     newItem[i] = id
@@ -171,7 +173,7 @@ const Catalog = () => {
             }
         }
     }   
-            console.log(cats)
+            // console.log(cats)
             return (
             <div className="catalog-page">
             <div className="container">

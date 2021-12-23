@@ -456,9 +456,10 @@ export const filterCatNewAction = (id ,page) => async(dispatch) => {
 }
 export const filterAction = (filter,page) => async(dispatch) => {
     try{
+        // console.log(filter)
         const res = await api._filter(filter,page && page)
 
-        console.log(res)
+        // console.log(res)
         return Promise.resolve(res.data)
     }
     catch(err){

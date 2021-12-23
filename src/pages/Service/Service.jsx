@@ -6,6 +6,8 @@ import BreadCumps from '../../components/BreadCumps'
 import Title from '../../components/Title'
 import Hamburger from '../../components/Hamburger';
 import { ScrollWrapper } from '../../components/ScrollWrapper';
+import { YMaps, Map, Placemark } from 'react-yandex-maps'
+import '../../style/pages/service.css'
 
 const Service = () => {
     const dispatch = useDispatch()
@@ -49,7 +51,21 @@ const Service = () => {
                                 )
                             })}
                         </div>
-                        <iframe src="https://yandex.ua/map-widget/v1/?um=constructor%3Aa062f98d07c68cedaa2e4eec1ac9d551aefe96454ce04960d1a05d23728964d1&amp;source=constructor" width="500" height="400" frameborder="0"></iframe>
+                        <div style={{ position: 'relative', height: '50vh' }} className="map">
+                            <YMaps style={{width: '90%', height: '100%'}}>
+                                <Map style={{left: 0,top: 0,width: '100%',position:'absolute',height: '100%'}} defaultState={{ center: [43.317931, 76.957602], zoom: 10 }} >
+                                    {service.map(item => {
+                                        return(
+                                            <Placemark 
+                                                key={item.id}
+                                                geometry={item.coordinate.split(',')} 
+                                                options={{iconColor: '#FF0000'}}
+                                            />
+                                        )
+                                    })}
+                                </Map>
+                            </YMaps>
+                        </div>
                     </div>
             }
         </div>

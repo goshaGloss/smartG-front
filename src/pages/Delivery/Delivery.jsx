@@ -46,7 +46,7 @@ const Delivery = () => {
                         <div className="payment-types-inner">
                             {delivery.delieveryZones.map(item =>{
                                 return(
-                                    <div className="payment-type">
+                                    <div key={item.id} className="payment-type">
                                         <div className="payment-title">
                                             <img style={{ width:'16px', height: '16px', marginRight: '16px' }} src={'https://smartg.a-lux.dev/storage/'+item.image} alt="" />
                                             <p className="payment-title-inner">{item.title}</p>
@@ -75,6 +75,7 @@ const Delivery = () => {
                                         return(
 
                                             <DeliveryZone 
+                                                key={item.id}
                                                 title={item.title}
                                                 under={item.under}
                                                 over={item.upper}

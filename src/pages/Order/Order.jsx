@@ -169,32 +169,28 @@ const Order = () => {
                 <Title title="Оформление заказа" style={{textAlign: 'center'}}></Title>
                 <div className="order-inner">
                     <div className="order-info">
-                        <form action>
+                        <form>
                             <div>
-                                <h4>Адрес и время доставки</h4>
+                            {/* <p className='order-field-title'>Адрес и время</p> */}
                                 <div>
                                     <p>
                                         <label>Адрес доставки:</label>
                                         <input value={chosen.address} onChange={(e) => onChangeChosen("city",e.target.value)} type="text" />
                                     </p>
-                                    <p>
                                         <label>Выберите дату:</label>
                                         <DatePicker selected={curDate} onChange={(myDate) => {
                                             setCurDate(myDate);
                                             onChangeChosen("delivery_date", myDate.toJSON().slice(0, 10))
                                         }} />
-                                    </p>
-                                    <p>
                                         <Dropdown chosen={chosen} keyIndex="time" setChosen={setChosen} defaultTitle="В течении рабочего дня" list={
                                             [
                                                 `В течении рабочего дня`,
                                                 `После рабочего дня`
                                             ]
                                         }/>
-                                    </p>
-                                    <p>
+                                    {/* <p> */}
                                         <div>
-                                        <h4>Условия доставки</h4>
+                                        <p className='order-field-title'>Условия доставки</p>  
                                             <div className="select-container">
                                                 <p>
                                                     <input checked={chosen.delivery_status ==  1 ? 1 : 0} className='radio'  type="radio" onChange={(e) => onChangeChosen("delivery_status",1)}/>
@@ -208,10 +204,10 @@ const Order = () => {
                                                 </p>
                                             </div>
                                         </div>
-                                    </p>
+                                    {/* </p> */}
                                     {isReceiver ? 
                                         <div className='your-info'>
-                                            <h4>Ваша информация</h4>
+                                        <p className='order-field-title'>Ваша информация</p>
                                         <div onClick={(e) => getUser()} className="imreciever">
                                             <span>Я получатель</span>
                                             <input checked={isReceiver} className='radio-receive' type="radio" onClick={(e) => getUser()}/>
@@ -230,7 +226,7 @@ const Order = () => {
                                         </div>
                                         :
                                         <div className='your-info'>
-                                            <h4>Введите вашу информацию</h4>
+                                        <p className='order-field-title'>Введите вашу информацию</p>
                                         <div onClick={(e) => getUser()} className="imreciever">
                                             <span checked={isReceiver} >Я получатель</span>
                                             <input className='radio-receive' type="radio"/>
@@ -249,7 +245,7 @@ const Order = () => {
                                         </div>
                                     }
                                     <div>
-                                        <h4>Способ Оплаты</h4>
+                                        <p className='order-field-title'>Способ Оплаты</p>
                                         <div className="select-container">
                                             <p>
                                                 <input checked={card} className='radio'  type="radio" onChange={(e) => changeCard(1)} />
@@ -273,7 +269,7 @@ const Order = () => {
                         <div className="order-items-inner">
                             {basket && basket.map(item =>{
                                 return(
-                                    <div className='basket-item-list' style={{height: '100px'}}>
+                                    <div key={item.id} className='basket-item-list' style={{height: '100px'}}>
                                         <img style={{ width:'80px',objectFit: 'cover' }} src={`https://smartg.a-lux.dev/storage/${item.image}`} alt="" />
                                         <div className='basket-info'>
                                             <span className="title">{item.title}</span>

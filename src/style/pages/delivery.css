@@ -12,7 +12,7 @@
     font-size: 22px;
     font-weight: 400;
 }
-.payment-type-inner{
+.payment-types-inner{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -42,4 +42,23 @@ iframe{
 }
 .delivery-zones{
     margin-bottom: 120px;
+}
+@media(max-width: 650px){
+    .delivery-zones{
+        flex-direction: row;
+        align-items: center;
+
+    }
+    .delivery-zones-title p{
+        width: 32%;
+    }
+    .delivery-zones-title p:first-child{
+        width: 35%;
+    }
+}
+@media(max-width:767px){
+    .payment-types-inner{
+        display: flex;
+        flex-direction: column;
+    }
 }

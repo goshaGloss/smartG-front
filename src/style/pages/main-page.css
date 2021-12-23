@@ -459,6 +459,9 @@
   }
 }
 @media(max-width:767px){
+  .left-q-text{
+    padding: 0px 10px;
+  }
   .slide{
     background-size: 295% 100%;
   }
@@ -467,7 +470,11 @@
     margin-left: 0;
   }
   .mini-adv{
+    margin: 0 !important;
+    text-align: center;
+    align-items: center;
     padding: 0;
+    flex-direction: column;
   }
   .footer-wrap{
     flex-direction: column !important;

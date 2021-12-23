@@ -4,6 +4,10 @@
     align-items: center;
     justify-content: space-between;
 }
+.rating-container-flex{
+    display: flex;
+    align-items: center;
+}
 .rating-container{
     display: flex;
     align-items: center;
@@ -116,7 +120,7 @@
     color: rgba(57, 55, 77, 0.5);
 }
 .similar-products{
-    justify-content: space-between;
+    justify-content: flex-start;
     display: flex;
     flex-direction: row;
 }

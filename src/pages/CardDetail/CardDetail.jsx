@@ -119,7 +119,7 @@ const CardDetail = () => {
                             {
                                 (!newComment.text && err) && <span style={{ color: 'red' }}>Введите комментарий</span>
                             }
-                            <input onInput={(e) => e.target.value <= 5 && setNewComment({ ...newComment, rating: e.target.value })} placeholder='Рейтинг' type="number" className="comment-rating-input" />
+                            <input value={newComment.rating} onInput={(e) => e.target.value <= 5 ? setNewComment({ ...newComment, rating: e.target.value }) : ''} placeholder='Рейтинг' type="number" className="comment-rating-input" />
                             {
                                 (!newComment.rating && err) && <span style={{ color: 'red' }}>Введите рейтинг(не больше 5)</span>
                             }
@@ -154,22 +154,24 @@ const CardDetail = () => {
                         <p className="product-title">{product.title}</p>
                         <div className="product-row">
                             <div className="rating">
-                                <p className="rating-title">Рейтинг: </p>
-                                <div className="rating-inner">
-                                    {
-                                        rating.map(item =>{
-                                            return(
-                                                <img src={imgImport('cardDetails', 'gold-star.png')} alt="" />
-                                            )
-                                        })
-                                    }
-                                    {
-                                        notRated.map(item =>{
-                                            return(
-                                                <img src={imgImport('cardDetails', 'gray-star.png')} alt="" />
-                                            )
-                                        })
-                                    }
+                                <div className="rating-container-flex">
+                                    <p className="rating-title">Рейтинг: </p>
+                                    <div className="rating-inner">
+                                        {
+                                            rating.map(item =>{
+                                                return(
+                                                    <img src={imgImport('cardDetails', 'gold-star.png')} alt="" />
+                                                )
+                                            })
+                                        }
+                                        {
+                                            notRated.map(item =>{
+                                                return(
+                                                    <img src={imgImport('cardDetails', 'gray-star.png')} alt="" />
+                                                )
+                                            })
+                                        }
+                                    </div>
                                 </div>
                                  <p className="article">Артикул: {product.setNumber}</p>    
                             </div>

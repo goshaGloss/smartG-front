@@ -89,9 +89,9 @@ const Footer = () => {
                         <a style={{cursor: 'pointer'}} onClick={() => navigate('/delivery')} className="info-item">
                             Информация о доставке
                         </a>
-                        <a className="info-item">
+                        {/* <a className="info-item">
                             Пользовательское соглашение
-                        </a>
+                        </a> */}
                     </div>
                     <div className="support">
                         <p className="support-title">
@@ -100,9 +100,9 @@ const Footer = () => {
                         <a onClick={() => callModal()} className="support-item">
                             Связаться с нами
                         </a>
-                        <a className="support-item">
+                        {/* <a className="support-item">
                             Карта сайта
-                        </a>
+                        </a> */}
                     </div>
                     <div className="additional">
                         <p className="additional-title">
@@ -117,9 +117,9 @@ const Footer = () => {
                         <a onClick={() => navigate('/partners')} className="additional-item">
                             Партнёры
                         </a>
-                        <a className="additional-item">
+                        {/* <a className="additional-item">
                             Товары со скидкой
-                        </a>
+                        </a> */}
                     </div>
                     <div className="icons">
                         <p className="icons-title">Соцсети</p>

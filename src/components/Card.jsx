@@ -27,7 +27,6 @@ const Card = (props) => {
             if(!_storage.get('smartg-fav')){
                 let favs = []
                 favs.push(productId.product_id)
-                console.log(favs)
                 _storage.set('smartg-fav',JSON.stringify({favs}))
             }else{
                 let favs = JSON.parse(_storage.get('smartg-fav')).favs

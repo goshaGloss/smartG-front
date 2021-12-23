@@ -54,7 +54,7 @@ const Discounts = () => {
                                 )
                             }else{
                                 return(
-                                    <div key={item.id} className="banner" onClick={() => navigate(`catalog/event=${item.id}`)} style={{ backgroundImage: `url(${imgImport('mainPage', 'cat-bg.png')})` }}>
+                                    <div key={item.id} className="banner" onClick={() => navigate(`/catalog/event=${item.id}`)} style={{ backgroundImage: `url(${imgImport('mainPage', 'cat-bg.png')})` }}>
                                         <div className="banner-wrap">
                                             <div className="toolpic-cat-cont">
 
